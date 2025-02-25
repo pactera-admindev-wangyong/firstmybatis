@@ -37,6 +37,25 @@ public class CityController {
 	@GetMapping("/cityinfo")
 	public String getCity(Model model,@RequestParam("state") String state) {
 		model.addAttribute("city", cityService.getCityByState(state));
+		
+		cityService.getCityById(Long.valueOf(1));
+		cityService.getAllCity();
+		
+		City newCity = new City();
+		newCity.setName("aaa");
+		newCity.setState("bbb");
+		newCity.setCountry("ccc");
+		cityService.createCity(newCity);
+		
+		City updateCity = new City();
+		updateCity.setId(Long.valueOf(2));
+		updateCity.setName("aaa");
+		updateCity.setState("bbb");
+		updateCity.setCountry("ccc");
+		cityService.modifyCity(updateCity);
+		
+		cityService.removeCity(Long.valueOf(2));
+		
 		return "cityinfo";
 	}
 

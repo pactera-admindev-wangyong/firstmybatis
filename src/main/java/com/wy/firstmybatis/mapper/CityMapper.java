@@ -15,9 +15,14 @@
  */
 package com.wy.firstmybatis.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.wy.firstmybatis.domain.City;
 
@@ -29,5 +34,20 @@ public interface CityMapper {
 
   @Select("select id, name, state, country from city where state = #{state}")
   City findByState(@Param("state") String state);
+  
+  @Select("select id, name, state, country from city")
+  List<City> findAll();
+  
+  @Select("select id, name, state, country from city where id = #{id}")
+  City findById(@Param("id") Long id);
+  
+  @Insert("insert into city (name, state, country) values( #{newCity.name},#{newCity.state},#{newCity.country})")
+  void insertCity(@Param("newCity") City newCity);
+  
+  @Update("update city set name = #{updateCity.name}, state = #{updateCity.state}, country = #{updateCity.country} where id = #{updateCity.id}")
+  void updateCity(@Param("updateCity") City updateCity);
+  
+  @Delete("delete from city where id = #{id}")
+  void deleteById(@Param("id") Long id);
 
 }
